@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+
+    <link rel="stylesheet" href="/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/documentation.css">
+    <link rel="stylesheet" href="/css/highlight.js/sunburst.css">
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/bootstrap-paginator.js"></script>
+</head>
+<body>
+    <table border="1" style="width:300px;margin:0 auto;margin-top:10px;">
+        <tr>
+            <td>ID</td>
+            <td>UserName</td>
+            <td>Password</td>
+        </tr>
+        <%for(var i = 0;i<user.items.length;i++){%>
+            <tr>
+                <td><%=user.items[i].id%></td>
+                <td><%=user.items[i].username%></td>
+                <td><%=user.items[i].password%></td>
+            </tr>
+        <%}%>
+    </table>
+
+    <div id="example"></div>
+    <script type="text/javascript">
+        var options = {
+            currentPage:"<%=user.currentPage%>",
+            totalPages:"<%=user.totalPages%>",
+            size:"large",
+            alignment:"center",
+            itemContainerClass: function (type, page, current) {
+                return (page === current) ? "active" : "pointer-cursor";
+            },
+            onPageClicked: function(e,originalEvent,type,page){
+                //alert("Page item clicked, type: "+type+" page: "+page);
+            },
+            onPageChanged: function(e,oldPage,newPage){
+                //alert("Current page changed, old: "+oldPage+" new: "+newPage);
+            },
+            pageUrl:function(type,page,current){
+                return "/user/myuser?p="+page+"&limit=10";
+            }
+        }
+
+        $("#example").bootstrapPaginator(options);
+    </script>
+</body>
+</html>
